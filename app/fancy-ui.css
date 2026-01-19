@@ -1,0 +1,364 @@
+/* Fancy Animated Button Styles - White & Light Blue */
+
+/* SVG Filters */
+.svg-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Button Container */
+.fancy-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.fancy-button-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-center: center;
+}
+
+.fancy-button-spin {
+  position: absolute;
+  inset: -20px;
+  border-radius: 16px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    #87CEEB 10%,
+    #FFFFFF 20%,
+    transparent 30%,
+    transparent 70%,
+    #FFFFFF 80%,
+    #87CEEB 90%,
+    transparent 100%
+  );
+  animation: rotate 4s linear infinite;
+}
+
+.fancy-button-spin-blur {
+  filter: url(#unopaq2) blur(20px);
+  opacity: 0.6;
+}
+
+.fancy-button-spin-intense {
+  filter: url(#unopaq);
+  opacity: 0.8;
+}
+
+.fancy-button-border {
+  position: relative;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(135,206,235,0.2));
+  overflow: hidden;
+}
+
+.fancy-button-spin-inside {
+  position: absolute;
+  inset: -100px;
+  border-radius: 12px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    #FFFFFF 5%,
+    transparent 15%,
+    transparent 85%,
+    #87CEEB 95%,
+    transparent 100%
+  );
+  filter: url(#unopaq3);
+  animation: rotate 3s linear infinite reverse;
+}
+
+.fancy-button {
+  position: relative;
+  padding: 12px 32px;
+  background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.fancy-button:hover {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  transform: scale(1.02);
+}
+
+.fancy-button:active {
+  transform: scale(0.98);
+}
+
+/* Fancy Input Styles - White & Light Blue */
+.fancy-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.fancy-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fancy-input-white,
+.fancy-input-border,
+.fancy-input-dark-border-bg,
+.fancy-input-glow {
+  max-height: 70px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 12px;
+  filter: blur(3px);
+}
+
+.fancy-input-white {
+  max-height: 63px;
+  border-radius: 10px;
+  filter: blur(2px);
+}
+
+.fancy-input-white::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(83deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  filter: brightness(1.4);
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    #E0F4FF,
+    rgba(0, 0, 0, 0) 8%,
+    rgba(0, 0, 0, 0) 50%,
+    #FFFFFF,
+    rgba(0, 0, 0, 0) 58%
+  );
+  transition: all 2s;
+}
+
+.fancy-input-border {
+  max-height: 59px;
+  border-radius: 11px;
+  filter: blur(0.5px);
+}
+
+.fancy-input-border::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(70deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: brightness(1.3);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #1c191c,
+    #87CEEB 5%,
+    #1c191c 14%,
+    #1c191c 50%,
+    #FFFFFF 60%,
+    #1c191c 64%
+  );
+  transition: all 2s;
+}
+
+.fancy-input-dark-border-bg {
+  max-height: 65px;
+}
+
+.fancy-input-dark-border-bg::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(82deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #5DADE2,
+    rgba(0, 0, 0, 0) 10%,
+    rgba(0, 0, 0, 0) 50%,
+    #AED6F1,
+    rgba(0, 0, 0, 0) 60%
+  );
+  transition: all 2s;
+}
+
+.fancy-input-glow {
+  overflow: hidden;
+  filter: blur(30px);
+  opacity: 0.4;
+  max-height: 130px;
+}
+
+.fancy-input-glow::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  position: absolute;
+  width: 999px;
+  height: 999px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #000,
+    #87CEEB 5%,
+    #000 38%,
+    #000 50%,
+    #FFFFFF 60%,
+    #000 87%
+  );
+  transition: all 2s;
+}
+
+/* Hover Effects */
+.fancy-input-wrapper:hover .fancy-input-dark-border-bg::before {
+  transform: translate(-50%, -50%) rotate(-98deg);
+}
+
+.fancy-input-wrapper:hover .fancy-input-glow::before {
+  transform: translate(-50%, -50%) rotate(-120deg);
+}
+
+.fancy-input-wrapper:hover .fancy-input-white::before {
+  transform: translate(-50%, -50%) rotate(-97deg);
+}
+
+.fancy-input-wrapper:hover .fancy-input-border::before {
+  transform: translate(-50%, -50%) rotate(-110deg);
+}
+
+/* Focus Effects */
+.fancy-input-wrapper:focus-within .fancy-input-dark-border-bg::before {
+  transform: translate(-50%, -50%) rotate(442deg);
+  transition: all 4s;
+}
+
+.fancy-input-wrapper:focus-within .fancy-input-glow::before {
+  transform: translate(-50%, -50%) rotate(420deg);
+  transition: all 4s;
+}
+
+.fancy-input-wrapper:focus-within .fancy-input-white::before {
+  transform: translate(-50%, -50%) rotate(443deg);
+  transition: all 4s;
+}
+
+.fancy-input-wrapper:focus-within .fancy-input-border::before {
+  transform: translate(-50%, -50%) rotate(430deg);
+  transition: all 4s;
+}
+
+.fancy-input {
+  background-color: #010201;
+  border: none;
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  color: white;
+  padding: 0 20px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.fancy-input::placeholder {
+  color: #c0b9c0;
+}
+
+.fancy-input:focus {
+  outline: none;
+}
+
+/* Pink mask effect (optional, converted to light blue) */
+.fancy-input-mask {
+  pointer-events: none;
+  width: 30px;
+  height: 20px;
+  position: absolute;
+  background: #87CEEB;
+  top: 18px;
+  left: 20px;
+  filter: blur(20px);
+  opacity: 0.8;
+  transition: all 2s;
+  z-index: 2;
+}
+
+.fancy-input-wrapper:hover .fancy-input-mask {
+  opacity: 0;
+}
+
+/* Animations */
+@keyframes rotate {
+  100% {
+    transform: translate(-50%, -50%) rotate(450deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Small button variant */
+.fancy-button-small .fancy-button {
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+/* Icon button variant */
+.fancy-button-icon .fancy-button {
+  padding: 12px;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fancy-button-icon .fancy-button-border {
+  border-radius: 50%;
+}
+
+.fancy-button-icon .fancy-button-spin,
+.fancy-button-icon .fancy-button-spin-inside {
+  border-radius: 50%;
+}
