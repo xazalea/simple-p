@@ -1,102 +1,94 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, User } from 'lucide-react';
+import { FancyButton } from './components/FancyButton';
+import { FancyInput } from './components/FancyInput';
 
 export default function Home() {
   const router = useRouter();
   const [username, setUsername] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
-  const [fingerprint, setFingerprint] = useState('');
-
-  useEffect(() => {
-    // Initialize FingerprintJS
-    const initFingerprint = async () => {
-      const fp = await FingerprintJS.load();
-      const result = await fp.get();
-      setFingerprint(result.visitorId);
-    };
-    initFingerprint();
-  }, []);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!username.trim()) return;
-    if (!fingerprint) {
-      alert('Security check in progress...');
+    if (!username.trim()) {
+      setError('Please enter a username');
       return;
     }
-
-    // Use username + fingerprint as secure identifier
-    const secureId = `${username}-${fingerprint}`;
-    localStorage.setItem('username', username);
-    localStorage.setItem('secureId', secureId);
-    localStorage.setItem('fingerprint', fingerprint);
     
-    router.push('/dashboard');
+    // Validate username (alphanumeric only)
+    const cleanUsername = username.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (cleanUsername.length < 2) {
+      setError('Username must be at least 2 characters (letters and numbers only)');
+      return;
+    }
+    
+    if (cleanUsername !== username.toLowerCase()) {
+      setError('Username can only contain letters and numbers');
+      return;
+    }
+    
+    setLoading(true);
+    setError('');
+    
+    // Use username as peer ID directly
+    const peerId = cleanUsername;
+    
+    localStorage.setItem('username', cleanUsername);
+    localStorage.setItem('peerId', peerId);
+    
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 500);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fadeIn">
-        <div className="bg-black border-2 border-white rounded-lg shadow-2xl p-8">
-          <h2 className="text-3xl font-bold text-center mb-8 text-white">
-            {isLogin ? 'Welcome Back' : 'Get Started'}
-          </h2>
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            Eclipse V2
+          </h1>
+          <p className="text-gray-400">Simple P2P Chat</p>
+        </div>
 
+        <div className="glass rounded-2xl shadow-2xl p-8">
           <form onSubmit={handleAuth} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                Username
+              <label className="block text-sm font-medium text-gray-300 mb-4">
+                Choose a Username
               </label>
-              <input
-                type="text"
+              <FancyInput
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
-                className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-black placeholder-gray-500 focus:border-white focus:ring-2 focus:ring-white transition-all"
-                required
+                placeholder="e.g. alice, bob123"
+                icon={<User size={20} />}
               />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-white hover:bg-gray-200 text-black font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg flex items-center justify-center space-x-2"
-            >
-              {isLogin ? (
-                <>
-                  <LogIn size={20} />
-                  <span>Login</span>
-                </>
-              ) : (
-                <>
-                  <UserPlus size={20} />
-                  <span>Create Account</span>
-                </>
-              )}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-white hover:text-gray-300 text-sm transition-colors"
-            >
-              {isLogin ? 'Create new account' : 'Already have an account?'}
-            </button>
-          </div>
-
-          {fingerprint && (
-            <div className="mt-6 p-3 bg-white rounded border-2 border-gray-300">
-              <p className="text-xs text-gray-600 text-center">
-                Secured with device fingerprint
+              <p className="text-xs text-gray-400 mt-2">
+                Letters and numbers only, at least 2 characters
               </p>
+              {error && (
+                <p className="text-xs text-red-400 mt-2">
+                  {error}
+                </p>
+              )}
             </div>
-          )}
+
+            <div className="w-full flex justify-center mt-8">
+              <FancyButton
+                type="submit"
+                disabled={loading}
+                className="w-full"
+              >
+                <LogIn size={20} className="inline-block mr-2" />
+                <span>{loading ? 'Entering...' : 'Enter Eclipse'}</span>
+              </FancyButton>
+            </div>
+          </form>
         </div>
       </div>
     </div>

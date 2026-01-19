@@ -17,7 +17,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-center: center;
+  justify-content: center;
 }
 
 .fancy-button-spin {
